@@ -342,4 +342,5 @@ if (sessionStorage.getItem("birthdaySite.unlocked") === "true") {
   startBackgroundSong();
 } else {
   $("gatePassword").focus();
-}
+} 
+})();
