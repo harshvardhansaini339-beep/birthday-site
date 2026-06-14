@@ -1,4 +1,9 @@
-const store = {
+console.log("APP.JS LOADED");
+  const supabaseClient = window.supabase.createClient(
+  "https://drjzqnhzhzsvfqebuayo.supabase.co",
+  "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
+);
+  const store = {
   details: "birthdaySite.details",
   memories: "birthdaySite.memories",
   wishes: "birthdaySite.wishes",
@@ -283,7 +288,38 @@ if ($("cardForm")) {
   });
 }
 
-applyDetails(read(store.details, {}));
+  (async () => {
+  const giftId = new URLSearchParams(window.location.search).get("gift");
+
+  console.log("Gift ID:", giftId);
+
+  const { data, error } = await supabaseClient
+    .from("birthday_settings")
+    .select("*")
+    .eq("id", giftId)
+    .single();
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) return;
+
+  applyDetails({
+    friendName: data.friend_name,
+    creatorName: data.creator_name,
+    password: data.password,
+    passwordHint: data.password_hint,
+    introNote: data.intro_note
+  });
+})();
+
+applyDetails({
+  friendName: data.friend_name,
+  creatorName: data.creator_name,
+  password: data.password,
+  passwordHint: data.password_hint,
+  introNote: data.intro_note
+});
 renderPolaroids();
 renderWishes();
 renderCard();
