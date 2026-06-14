@@ -30,12 +30,18 @@ const musicStoreName = "files";
 const musicKey = "backgroundSong";
 
 function useShareUrl() {
-  const isRootPage = location.pathname === "/" || location.pathname.endsWith("/index.html");
+  const isRootPage =
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html");
+
   if (isRootPage && history.replaceState) {
-    history.replaceState(null, "", `${sharePath}${location.hash}`);
+    history.replaceState(
+      null,
+      "",
+      `${sharePath}${location.search}${location.hash}`
+    );
   }
 }
-
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
