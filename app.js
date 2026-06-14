@@ -53,7 +53,6 @@ function useShareUrl() {
       `${sharePath}${location.search}${location.hash}`
     );
   }
-}
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
