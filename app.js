@@ -314,14 +314,15 @@ if ($("cardForm")) {
   console.log("ERROR:", error);
 
   if (error || !data) return;
-
-applyDetails({
+  applyDetails({
   friendName: data.friend_name,
   creatorName: data.creator_name,
   password: data.password,
   passwordHint: data.password_hint,
   introNote: data.intro_note
 });
+
+})();
 renderPolaroids();
 renderWishes();
 renderCard();
