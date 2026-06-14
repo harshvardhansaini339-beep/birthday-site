@@ -336,4 +336,3 @@ if (sessionStorage.getItem("birthdaySite.unlocked") === "true") {
 } else {
   $("gatePassword").focus();
 } 
-})();
