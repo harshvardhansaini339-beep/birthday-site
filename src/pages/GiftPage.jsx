@@ -1,9 +1,11 @@
+import GiftPage from "./pages/GiftPage";
+<Route path="/:slug" element={<GiftPage />} /> 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const supabase = window.supabase.createClient(
   "https://drjzqnhzhzsvfqebuayo.supabase.co",
-  "YOUR_ANON_KEY"
+  "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
 );
 
 export default function GiftPage() {
