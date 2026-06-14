@@ -46,9 +46,11 @@ const musicKey = "backgroundSong";
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
+
     request.onupgradeneeded = () => {
       request.result.createObjectStore(musicStoreName);
     };
+
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
@@ -66,7 +68,6 @@ async function getMusic() {
     transaction.oncomplete = () => db.close();
   });
 }
-
 function currentPassword() {
   const details = read(store.details, {});
   return details.password || defaultPassword;
