@@ -11,6 +11,8 @@ console.log("APP.JS LOADED");
 };
 
 const defaultPassword = "cake21";
+let sitePassword = defaultPassword;
+
 const $ = (id) => document.getElementById(id);
 
 const read = (key, fallback) => {
@@ -69,8 +71,7 @@ async function getMusic() {
   });
 }
 function currentPassword() {
-  const details = read(store.details, {});
-  return details.password || defaultPassword;
+  return sitePassword;
 }
 
 function unlockSite() {
