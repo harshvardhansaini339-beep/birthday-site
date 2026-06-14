@@ -42,6 +42,18 @@ function useShareUrl() {
     );
   }
 }
+  const isRootPage =
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html");
+
+  if (isRootPage && history.replaceState) {
+    history.replaceState(
+      null,
+      "",
+      `${sharePath}${location.search}${location.hash}`
+    );
+  }
+}
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
@@ -293,11 +305,12 @@ if ($("cardForm")) {
     renderCard();
   });
 }
-
   (async () => {
   const giftId = new URLSearchParams(window.location.search).get("gift");
 
   console.log("Gift ID:", giftId);
+
+  if (!giftId) return;
 
   const { data, error } = await supabaseClient
     .from("birthday_settings")
@@ -308,7 +321,7 @@ if ($("cardForm")) {
   console.log("DATA:", data);
   console.log("ERROR:", error);
 
-  if (error) return;
+  if (error || !data) return;
 
   applyDetails({
     friendName: data.friend_name,
