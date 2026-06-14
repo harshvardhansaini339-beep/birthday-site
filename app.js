@@ -29,11 +29,6 @@ const musicDbName = "birthdaySite.media";
 const musicStoreName = "files";
 const musicKey = "backgroundSong";
 
-function useShareUrl() {
-  const isRootPage =
-    location.pathname === "/" ||
-    location.pathname.endsWith("/index.html");
-
  function useShareUrl() {
   const isRootPage =
     location.pathname === "/" ||
@@ -47,14 +42,6 @@ function useShareUrl() {
     );
   }
 }
-  if (isRootPage && history.replaceState) {
-    history.replaceState(
-      null,
-      "",
-      `${sharePath}${location.search}${location.hash}`
-    );
-  }
-function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
     request.onupgradeneeded = () => {
