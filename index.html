@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>21st Birthday Surprise</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="locked">
+    <div class="sparkle-layer" aria-hidden="true"></div>
+    <section class="gate" id="passwordGate" aria-label="Password required">
+      <form class="gate-card" id="gateForm">
+        <p class="kicker">secret birthday portal</p>
+        <h2>Enter the password</h2>
+        <p>The surprise opens only after the magic word.</p>
+        <label>
+          Password
+          <input id="gatePassword" type="password" autocomplete="current-password" placeholder="enter secret" />
+        </label>
+        <p class="password-hint" id="gateHint">Hint: something soft and birthday-ish.</p>
+        <button type="submit">Open birthday site</button>
+        <p class="gate-error" id="gateMessage" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <div class="site-shell" id="siteShell" aria-hidden="true">
+      <button class="music-toggle" id="musicToggle" type="button" hidden>Play song</button>
+      <header class="hero" id="top">
+        <nav class="topbar" aria-label="Birthday sections">
+          <a href="#intro">Intro</a>
+          <a href="#memories">Memory Wall</a>
+          <a href="#cake">Cake</a>
+          <a href="#wishes">Wishes</a>
+          <a href="#card">Card</a>
+        </nav>
+
+        <div class="balloon-field" aria-hidden="true">
+          <div class="balloon balloon-one">2</div>
+          <div class="balloon balloon-two">1</div>
+          <div class="balloon tiny"></div>
+          <div class="balloon tiny second"></div>
+        </div>
+
+        <section class="hero-copy">
+          <p class="kicker">soft-launching the cutest 21st</p>
+          <h1 id="heroName">Happy 21st Birthday, Bestie</h1>
+          <p id="heroMessage">
+            A squishy pink corner of the internet for memories, tiny jokes, cake,
+            and all the love.
+          </p>
+          <a class="primary-link" href="#intro">Start the surprise</a>
+        </section>
+      </header>
+
+      <main>
+      <section class="section intro-grid visitor-intro" id="intro">
+        <div class="panel birthday-note">
+          <div class="section-heading">
+            <p class="kicker">a tiny note</p>
+            <h2>For the birthday star</h2>
+          </div>
+          <p id="visitorIntroNote">
+            This little page was made for memories, wishes, cake, and all the
+            soft birthday feelings.
+          </p>
+        </div>
+
+        <aside class="panel reveal-panel">
+          <div class="animal-stack" aria-label="Cute animal meme cards">
+            <article class="meme-card bunny">
+              <div class="animal-face">૮ ˶ᵔ ᵕ ᵔ˶ ა</div>
+              <p>me guarding the birthday cake</p>
+            </article>
+            <article class="meme-card cat">
+              <div class="animal-face">=＾● ⋏ ●＾=</div>
+              <p>official party supervisor</p>
+            </article>
+            <article class="meme-card bear">
+              <div class="animal-face">ʕっ•ᴥ•ʔっ</div>
+              <p>sending emergency hugs</p>
+            </article>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="memories">
+        <div class="section-heading">
+          <p class="kicker">tiny museum of us</p>
+          <h2>Memory wall</h2>
+        </div>
+        <div class="upload-row">
+          <label class="file-button">
+            Add polaroids
+            <input id="memoryUpload" type="file" accept="image/*" multiple />
+          </label>
+          <button id="clearMemories" type="button">Clear wall</button>
+        </div>
+        <div class="polaroid-wall" id="memoryWall"></div>
+      </section>
+
+      <section class="section cake-stage" id="cake">
+        <div class="section-heading">
+          <p class="kicker">mandatory ceremony</p>
+          <h2>Cut the birthday cake</h2>
+        </div>
+        <div class="cake-wrap">
+          <div class="cake" id="cakeShape" role="img" aria-label="Pink birthday cake">
+            <div class="candles">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="cake-top"></div>
+            <div class="cake-body">
+              <strong>21</strong>
+            </div>
+            <div class="cake-slice"></div>
+          </div>
+          <button id="cutCake" type="button">Cut cake</button>
+          <p id="cakeMessage">Tap the button for confetti and a slice.</p>
+        </div>
+      </section>
+
+      <section class="section wishes-section" id="wishes">
+        <div class="section-heading">
+          <p class="kicker">leave a little love</p>
+          <h2>Wishes area</h2>
+        </div>
+        <form id="wishForm" class="wish-form">
+          <input id="wishName" type="text" placeholder="Your name" />
+          <textarea id="wishText" rows="3" placeholder="Write a birthday wish..."></textarea>
+          <button type="submit">Add wish</button>
+        </form>
+        <div class="wish-list" id="wishList"></div>
+      </section>
+
+      <section class="section card-section" id="card">
+        <div class="section-heading">
+          <p class="kicker">the final soft note</p>
+          <h2>Birthday card</h2>
+        </div>
+        <article class="birthday-card visitor-card" id="birthdayCard">
+          <div class="card-ribbon">21</div>
+          <h3 id="previewTitle">To my favorite human</h3>
+          <p id="previewText">
+            May your day be full of cake, chaos, cozy hugs, pretty skies, and
+            people who love you loudly.
+          </p>
+          <p class="signature" id="previewSignature">with love, your creator</p>
+        </article>
+      </section>
+      </main>
+    </div>
+
+    <template id="polaroidTemplate">
+      <figure class="polaroid">
+        <img alt="Uploaded birthday memory" />
+        <figcaption contenteditable="true">write a caption</figcaption>
+      </figure>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

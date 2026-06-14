@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creator Controls</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="sparkle-layer" aria-hidden="true"></div>
+    <main class="creator-page">
+      <header class="creator-header">
+        <p class="kicker">creator page</p>
+        <h1>Birthday Control Room</h1>
+        <p>Update the secret details, opening note, and final birthday card from here.</p>
+        <div class="creator-actions">
+          <a class="primary-link" href="../agifttomypreciousbestie">Open gift page</a>
+          <a class="secondary-link" href="../">Preview root</a>
+        </div>
+      </header>
+
+      <section class="section creator-layout">
+        <form id="creatorDetailsForm" class="panel form-grid">
+          <div class="section-heading">
+            <p class="kicker">surprise settings</p>
+            <h2>Main details</h2>
+          </div>
+          <label>
+            Friend's name
+            <input id="friendName" type="text" placeholder="e.g. Aanya" />
+          </label>
+          <label>
+            Creator name
+            <input id="creatorName" type="text" placeholder="e.g. from Riya" />
+          </label>
+          <label>
+            Secret password
+            <input id="password" type="text" placeholder="e.g. cake21" />
+          </label>
+          <label>
+            Password hint
+            <input id="passwordHint" type="text" placeholder="e.g. her favorite flower" />
+          </label>
+          <label>
+            Intro note
+            <textarea id="introNote" rows="5" placeholder="Write a tiny opening message..."></textarea>
+          </label>
+          <button type="submit">Save main details</button>
+          <p class="save-note" id="detailsSaveNote" aria-live="polite"></p>
+        </form>
+
+        <form id="creatorCardForm" class="panel form-grid">
+          <div class="section-heading">
+            <p class="kicker">final card</p>
+            <h2>Last wishes</h2>
+          </div>
+          <label>
+            Card title
+            <input id="cardTitle" type="text" placeholder="To my favorite human" />
+          </label>
+          <label>
+            Last wishes
+            <textarea id="cardText" rows="10" placeholder="Write the big heartfelt ending here..."></textarea>
+          </label>
+          <button type="submit">Save card</button>
+          <p class="save-note" id="cardSaveNote" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="section">
+        <form id="creatorMusicForm" class="panel form-grid">
+          <div class="section-heading">
+            <p class="kicker">background song</p>
+            <h2>Choose the music</h2>
+          </div>
+          <label>
+            Song file
+            <input id="songFile" type="file" accept="audio/*" />
+          </label>
+          <div class="song-status" id="songStatus">No song selected yet.</div>
+          <div class="creator-actions">
+            <button type="submit">Save song</button>
+            <button id="removeSong" type="button">Remove song</button>
+          </div>
+          <p class="save-note" id="musicSaveNote" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="section">
+        <article class="birthday-card visitor-card">
+          <div class="card-ribbon">21</div>
+          <h3 id="previewTitle">To my favorite human</h3>
+          <p id="previewText">
+            May your day be full of cake, chaos, cozy hugs, pretty skies, and
+            people who love you loudly.
+          </p>
+          <p class="signature" id="previewSignature">with love, your creator</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../creator.js"></script>
+    </body>
+    </html>
