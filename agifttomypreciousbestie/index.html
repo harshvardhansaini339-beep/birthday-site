@@ -1,22 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loading Birthday Surprise</title>
-  </head>
-  <body>
-    <script>
-      fetch("../index.html")
-        .then((response) => response.text())
-        .then((html) => {
-          const page = html
-            .replace('href="styles.css"', 'href="../styles.css"')
-            .replace('src="app.js"', 'src="../app.js"');
-          document.open();
-          document.write(page);
-          document.close();
-        });
-    </script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="0; url=../">
+</head>
+<body>
+</body>
 </html>
