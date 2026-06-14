@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
   "https://drjzqnhzhzsvfqebuayo.supabase.co",
   "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
 );
@@ -105,7 +105,7 @@ async function applyPreview() {
 $("creatorDetailsForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("birthday_settings")
     .insert({
       friend_name: $("friendName").value.trim(),
