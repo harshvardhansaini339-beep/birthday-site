@@ -34,6 +34,11 @@ function useShareUrl() {
     location.pathname === "/" ||
     location.pathname.endsWith("/index.html");
 
+ function useShareUrl() {
+  const isRootPage =
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html");
+
   if (isRootPage && history.replaceState) {
     history.replaceState(
       null,
@@ -42,10 +47,6 @@ function useShareUrl() {
     );
   }
 }
-  const isRootPage =
-    location.pathname === "/" ||
-    location.pathname.endsWith("/index.html");
-
   if (isRootPage && history.replaceState) {
     history.replaceState(
       null,
