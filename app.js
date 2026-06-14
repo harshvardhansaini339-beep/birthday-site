@@ -323,15 +323,6 @@ if ($("cardForm")) {
 
   if (error || !data) return;
 
-  applyDetails({
-    friendName: data.friend_name,
-    creatorName: data.creator_name,
-    password: data.password,
-    passwordHint: data.password_hint,
-    introNote: data.intro_note
-  });
-})();
-
 applyDetails({
   friendName: data.friend_name,
   creatorName: data.creator_name,
