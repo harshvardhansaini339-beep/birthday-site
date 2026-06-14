@@ -315,6 +315,10 @@ if ($("cardForm")) {
   console.log("ERROR:", error);
 
   if (error || !data) return;
+
+  sitePassword = data.password || defaultPassword;
+  console.log("Password from DB:", sitePassword);
+    
   applyDetails({
   friendName: data.friend_name,
   creatorName: data.creator_name,
