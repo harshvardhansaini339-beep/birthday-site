@@ -53,10 +53,14 @@ function openMusicDb() {
     request.onerror = () => reject(request.error);
   });
 }
+
+async function getMusic() {
   const db = await openMusicDb();
+
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(musicStoreName, "readonly");
     const request = transaction.objectStore(musicStoreName).get(musicKey);
+
     request.onsuccess = () => resolve(request.result || null);
     request.onerror = () => reject(request.error);
     transaction.oncomplete = () => db.close();
