@@ -98,6 +98,20 @@ async function loadFromSupabase(id) {
 
   sitePassword = data.password || defaultPassword;
 
+    async function loadFromSupabase(id) {
+  const { data, error } = await supabaseClient
+    .from("birthday_settings")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error || !data) return;
+
+  sitePassword = data.password || defaultPassword;
+
   applyDetails({
     friendName: data.friend_name,
     creatorName: data.creator_name,
@@ -106,21 +120,6 @@ async function loadFromSupabase(id) {
     introNote: data.intro_note,
   });
 }
-
-  memories.forEach((item, index) => {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    const caption = document.createElement("figcaption");
-
-    img.src = item.src;
-    caption.textContent = item.caption || "write a caption";
-
-    figure.style.transform = `rotate(${[-3, 2, -1, 3, -2][index % 5]}deg)`;
-
-    figure.appendChild(img);
-    figure.appendChild(caption);
-    wall.appendChild(figure);
-  });
 
 function renderWishes() {
   const wishes = read(store.wishes, []);
