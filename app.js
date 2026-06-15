@@ -12,7 +12,6 @@ console.log("Share Link:", shareLink);
 if (giftId) {
   loadFromSupabase(giftId);
 }
-const shareLink = `https://birthday-site-zeta-seven.vercel.app/agifttomypreciousbestie?gift=${giftId}`;
 
 console.log("Gift ID:", giftId);
 
