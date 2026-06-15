@@ -1,3 +1,9 @@
+const url = new URL(window.location.href);
+const giftId = url.searchParams.get("gift");
+
+console.log("Gift ID:", giftId);
+
+useShareUrl();
 console.log("VERSION TEST 123");
 console.log("APP.JS LOADED");
   const supabaseClient = window.supabase.createClient(
