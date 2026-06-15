@@ -17,11 +17,17 @@ const CONFIG = {
 };
 
 function getGiftId() {
-  const path = window.location.pathname;
+  const url = new URL(window.location.href);
 
-  // supports: /agifttomypreciousbestie/123
-  const match = path.match(/\/agifttomypreciousbestie\/(.+)/);
-  return match ? match[1] : null;
+  // 1. old format (?gift=)
+  const queryGift = url.searchParams.get("gift");
+  if (queryGift) return queryGift;
+
+  // 2. new format (/gift/id)
+  const match = url.pathname.match(/\/agifttomypreciousbestie\/(.+)/);
+  if (match) return match[1];
+
+  return null;
 }
 
 const giftId = getGiftId();
@@ -151,6 +157,11 @@ function showError(msg) {
 
 (async function init() {
   showLoading();
+  if (!giftId) {
+  showError("No gift ID found in URL 💔");
+  hideLoading();
+  return;
+}
 
   try {
     // 1. fetch gift
@@ -159,8 +170,29 @@ function showError(msg) {
     if (data) {
       state.password = data.password || CONFIG.defaultPassword;
 
-      applyDetails(data);
-    }
+      function applyDetails(d) {
+  if (!d) return;
+
+  const hero = $("heroName");
+  if (hero && d.friend_name) {
+    hero.textContent = `Happy 21st Birthday, ${d.friend_name}`;
+  }
+
+  const intro = $("visitorIntroNote");
+  if (intro) intro.textContent = d.intro_note || "";
+
+  const friend = $("friendName");
+  if (friend) friend.value = d.friend_name || "";
+
+  const creator = $("creatorName");
+  if (creator) creator.value = d.creator_name || "";
+
+  const pass = $("password");
+  if (pass) pass.value = d.password || "";
+
+  const hint = $("passwordHint");
+  if (hint) hint.value = d.password_hint || "";
+}
 
     // 2. render UI
     renderPolaroids();
