@@ -11,6 +11,8 @@ console.log("APP.JS LOADED");
 };
 
 const defaultPassword = "cake21";
+let sitePassword = defaultPassword;
+
 const $ = (id) => document.getElementById(id);
 
 const read = (key, fallback) => {
@@ -29,19 +31,28 @@ const musicDbName = "birthdaySite.media";
 const musicStoreName = "files";
 const musicKey = "backgroundSong";
 
-function useShareUrl() {
-  const isRootPage = location.pathname === "/" || location.pathname.endsWith("/index.html");
+ function useShareUrl() {
+  const isRootPage =
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html");
+
   if (isRootPage && history.replaceState) {
-    history.replaceState(null, "", `${sharePath}${location.hash}`);
+    history.replaceState(
+      null,
+      "",
+      `${sharePath}${location.search}${location.hash}`
+    );
   }
 }
 
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
+
     request.onupgradeneeded = () => {
       request.result.createObjectStore(musicStoreName);
     };
+
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
@@ -49,18 +60,18 @@ function openMusicDb() {
 
 async function getMusic() {
   const db = await openMusicDb();
+
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(musicStoreName, "readonly");
     const request = transaction.objectStore(musicStoreName).get(musicKey);
+
     request.onsuccess = () => resolve(request.result || null);
     request.onerror = () => reject(request.error);
     transaction.oncomplete = () => db.close();
   });
 }
-
 function currentPassword() {
-  const details = read(store.details, {});
-  return details.password || defaultPassword;
+  return sitePassword;
 }
 
 function unlockSite() {
@@ -287,11 +298,12 @@ if ($("cardForm")) {
     renderCard();
   });
 }
-
   (async () => {
   const giftId = new URLSearchParams(window.location.search).get("gift");
 
   console.log("Gift ID:", giftId);
+
+  if (!giftId) return;
 
   const { data, error } = await supabaseClient
     .from("birthday_settings")
@@ -302,24 +314,20 @@ if ($("cardForm")) {
   console.log("DATA:", data);
   console.log("ERROR:", error);
 
-  if (error) return;
+  if (error || !data) return;
 
+  sitePassword = data.password || defaultPassword;
+  console.log("Password from DB:", sitePassword);
+    
   applyDetails({
-    friendName: data.friend_name,
-    creatorName: data.creator_name,
-    password: data.password,
-    passwordHint: data.password_hint,
-    introNote: data.intro_note
-  });
-})();
-
-applyDetails({
   friendName: data.friend_name,
   creatorName: data.creator_name,
   password: data.password,
   passwordHint: data.password_hint,
   introNote: data.intro_note
 });
+
+})();
 renderPolaroids();
 renderWishes();
 renderCard();
@@ -332,4 +340,4 @@ if (sessionStorage.getItem("birthdaySite.unlocked") === "true") {
   startBackgroundSong();
 } else {
   $("gatePassword").focus();
-}
+} 
