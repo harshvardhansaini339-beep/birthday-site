@@ -24,9 +24,13 @@ function useShareUrl() {
 
   const url = new URL(window.location.href);
 
-  const newUrl = sharePath + (url.search || "");
+  const search = url.search && url.search.length > 1 ? url.search : "";
 
-  history.replaceState(null, "", newUrl);
+  history.replaceState(
+    null,
+    "",
+    `${sharePath}${search}`
+  );
 }
   const store = {
   details: "birthdaySite.details",
