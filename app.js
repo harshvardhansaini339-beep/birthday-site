@@ -2,12 +2,17 @@ const url = new URL(window.location.href);
 const giftId = url.searchParams.get("gift");
 
 console.log("Gift ID:", giftId);
+
+const shareLink = giftId
+  ? `https://birthday-site-zeta-seven.vercel.app/agifttomypreciousbestie?gift=${giftId}`
+  : null;
+
+console.log("Share Link:", shareLink);
+
 if (giftId) {
   loadFromSupabase(giftId);
 }
 const shareLink = `https://birthday-site-zeta-seven.vercel.app/agifttomypreciousbestie?gift=${giftId}`;
-const url = new URL(window.location.href);
-const giftId = url.searchParams.get("gift");
 
 console.log("Gift ID:", giftId);
 
