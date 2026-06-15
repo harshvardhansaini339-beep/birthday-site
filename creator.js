@@ -9,15 +9,14 @@ const $ = (id) => document.getElementById(id);
 
 async function createGift() {
   const payload = {
-    friend_name: $("friendName").value,
-    creator_name: $("creatorName").value,
-    password: $("password").value,
-    password_hint: $("passwordHint").value,
-    intro_note: $("introNote").value,
-    memories: [],
-    wishes: [],
-    card: {},
+    friend_name: $("friendName")?.value || "",
+    creator_name: $("creatorName")?.value || "",
+    password: $("password")?.value || "cake21",
+    password_hint: $("passwordHint")?.value || "",
+    intro_note: $("introNote")?.value || "",
   };
+
+  console.log("SAVING:", payload);
 
   const { data, error } = await supabaseClient
     .from("birthday_settings")
@@ -26,8 +25,8 @@ async function createGift() {
     .single();
 
   if (error) {
-    console.error(error);
-    alert("Failed to create gift");
+    console.error("SUPABASE ERROR:", error);
+    alert("Save failed (check console)");
     return;
   }
 
@@ -35,11 +34,8 @@ async function createGift() {
 
   const link = `${window.location.origin}/agifttomypreciousbestie?gift=${giftId}`;
 
-  console.log("CREATED GIFT:", giftId);
-  console.log("SHARE LINK:", link);
-
-  prompt("Copy your link:", link);
+  console.log("CREATED:", giftId);
+  prompt("Copy link:", link);
 }
 
-document.getElementById("createBtn")
-  .addEventListener("click", createGift);
+document.getElementById("createBtn")?.addEventListener("click", createGift);
