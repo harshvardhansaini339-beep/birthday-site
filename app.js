@@ -1,3 +1,4 @@
+console.log("VERSION TEST 123");
 console.log("APP.JS LOADED");
   const supabaseClient = window.supabase.createClient(
   "https://drjzqnhzhzsvfqebuayo.supabase.co",
