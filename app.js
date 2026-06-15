@@ -1,3 +1,4 @@
+const shareLink = `https://birthday-site-zeta-seven.vercel.app/agifttomypreciousbestie?gift=${giftId}`;
 const url = new URL(window.location.href);
 const giftId = url.searchParams.get("gift");
 
