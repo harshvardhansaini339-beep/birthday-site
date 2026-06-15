@@ -1,3 +1,4 @@
+console.log("SHARE LINK GENERATED:", shareLink);
 const supabaseClient = window.supabase.createClient(
   "https://drjzqnhzhzsvfqebuayo.supabase.co",
   "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
