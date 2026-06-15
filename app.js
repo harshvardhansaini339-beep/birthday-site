@@ -1,4 +1,4 @@
-console.log("APP LOADED");
+console.log("APP V3 LOADED");
 
 const supabaseClient = window.supabase.createClient(
   "https://drjzqnhzhzsvfqebuayo.supabase.co",
@@ -16,15 +16,17 @@ const CONFIG = {
   sharePath: "/agifttomypreciousbestie",
 };
 
-const url = new URL(window.location.href);
-const giftId = url.searchParams.get("gift");
+function getGiftId() {
+  const path = window.location.pathname;
 
-let sitePassword = CONFIG.defaultPassword;
+  // supports: /agifttomypreciousbestie/123
+  const match = path.match(/\/agifttomypreciousbestie\/(.+)/);
+  return match ? match[1] : null;
+}
 
-console.log("Gift system active:", {
-  giftId,
-  hasGift: !!giftId
-});
+const giftId = getGiftId();
+
+console.log("Gift ID:", giftId);
 
 const $ = (id) => document.getElementById(id);
 
@@ -39,55 +41,46 @@ const read = (key, fallback) => {
 const write = (key, value) =>
   localStorage.setItem(key, JSON.stringify(value));
 
-async function loadFromSupabase(id) {
+const state = {
+  password: CONFIG.defaultPassword,
+  loading: true,
+  error: null,
+};
+
+async function fetchGift(id) {
+  if (!id) return null;
+
   const { data, error } = await supabaseClient
     .from("birthday_settings")
     .select("*")
     .eq("id", id)
     .single();
 
-  if (error || !data) {
-    console.error(error);
-    return;
+  if (error) {
+    console.error("Supabase error:", error);
+    state.error = "Gift not found";
+    return null;
   }
 
-  sitePassword = data.password || CONFIG.defaultPassword;
-
-  function applyDetails(details) {
-  const heroName = $("heroName");
-  if (heroName && details.friendName) {
-    heroName.textContent =
-      `Happy 21st Birthday, ${details.friendName}`;
-  }
-
-  const visitorIntro = $("visitorIntroNote");
-  if (visitorIntro && details.introNote) {
-    visitorIntro.textContent = details.introNote;
-  }
-
-  if ($("friendName")) $("friendName").value = details.friendName || "";
-  if ($("creatorName")) $("creatorName").value = details.creatorName || "";
-  if ($("password")) $("password").value = details.password || "";
-  if ($("passwordHint")) $("passwordHint").value = details.passwordHint || "";
-  if ($("introNote")) $("introNote").value = details.introNote || "";
-}
+  return data;
 }
 
-function applyDetails(details) {
-  if (details.friendName) {
-    $("heroName").textContent =
-      `Happy 21st Birthday, ${details.friendName}`;
+function applyDetails(d) {
+  if (!d) return;
+
+  const hero = $("heroName");
+  if (hero && d.friend_name) {
+    hero.textContent = `Happy 21st Birthday, ${d.friend_name}`;
   }
 
-  if (details.introNote && $("visitorIntroNote")) {
-    $("visitorIntroNote").textContent = details.introNote;
+  if ($("visitorIntroNote")) {
+    $("visitorIntroNote").textContent = d.intro_note || "";
   }
 
-  if ($("friendName")) $("friendName").value = details.friendName || "";
-  if ($("creatorName")) $("creatorName").value = details.creatorName || "";
-  if ($("password")) $("password").value = details.password || "";
-  if ($("passwordHint")) $("passwordHint").value = details.passwordHint || "";
-  if ($("introNote")) $("introNote").value = details.introNote || "";
+  if ($("friendName")) $("friendName").value = d.friend_name || "";
+  if ($("creatorName")) $("creatorName").value = d.creator_name || "";
+  if ($("password")) $("password").value = d.password || "";
+  if ($("passwordHint")) $("passwordHint").value = d.password_hint || "";
 }
 
 function renderPolaroids() {
@@ -97,20 +90,20 @@ function renderPolaroids() {
 
   wall.innerHTML = "";
 
-  memories.forEach((item, index) => {
-    const figure = document.createElement("figure");
+  memories.forEach((m, i) => {
+    const fig = document.createElement("figure");
     const img = document.createElement("img");
-    const caption = document.createElement("figcaption");
+    const cap = document.createElement("figcaption");
 
-    img.src = item.src;
-    caption.textContent = item.caption || "write a caption";
+    img.src = m.src;
+    cap.textContent = m.caption || "";
 
-    figure.style.transform =
-      `rotate(${[-3, 2, -1, 3, -2][index % 5]}deg)`;
+    fig.style.transform =
+      `rotate(${[-3, 2, -1, 3, -2][i % 5]}deg)`;
 
-    figure.appendChild(img);
-    figure.appendChild(caption);
-    wall.appendChild(figure);
+    fig.appendChild(img);
+    fig.appendChild(cap);
+    wall.appendChild(fig);
   });
 }
 
@@ -121,10 +114,10 @@ function renderWishes() {
 
   list.innerHTML = "";
 
-  wishes.forEach((wish) => {
-    const item = document.createElement("article");
-    item.innerHTML = `<strong>${wish.name}</strong><p>${wish.text}</p>`;
-    list.appendChild(item);
+  wishes.forEach(w => {
+    const el = document.createElement("article");
+    el.innerHTML = `<strong>${w.name}</strong><p>${w.text}</p>`;
+    list.appendChild(el);
   });
 }
 
@@ -138,60 +131,62 @@ function renderCard() {
   if ($("previewText")) $("previewText").textContent = card.text || "";
 }
 
-function useShareUrl() {
-  const isRoot =
-    location.pathname === "/" ||
-    location.pathname.endsWith("/index.html");
+function showLoading() {
+  const el = $("loadingScreen");
+  if (el) el.style.display = "flex";
+}
 
-  if (!isRoot) return;
+function hideLoading() {
+  const el = $("loadingScreen");
+  if (el) el.style.display = "none";
+}
 
-  const search = window.location.search;
-  const clean = search && search.length > 1 ? search : "";
-
-  history.replaceState(
-    null,
-    "",
-    `${CONFIG.sharePath}${clean}`
-  );
+function showError(msg) {
+  const el = $("errorScreen");
+  if (el) {
+    el.style.display = "flex";
+    el.textContent = msg;
+  }
 }
 
 (async function init() {
-  // 1. load data FIRST
-  if (giftId) {
-    await loadFromSupabase(giftId);
-     setupBackgroundSong();
-  if (sessionStorage.getItem("birthdaySite.unlocked") === "true")
-  startBackgroundSong();
-  }
+  showLoading();
 
-  // 2. render UI
-  renderPolaroids();
-  renderWishes();
-  renderCard();
+  try {
+    // 1. fetch gift
+    const data = await fetchGift(giftId);
 
-  // 3. fix URL
-  function useShareUrl() {
-  const isRoot =
-    location.pathname === "/" ||
-    location.pathname.endsWith("/index.html");
+    if (data) {
+      state.password = data.password || CONFIG.defaultPassword;
 
-  if (!isRoot) return;
+      applyDetails(data);
+    }
 
-  const search = window.location.search;
-  const clean = search && search.startsWith("?gift=") ? search : "";
+    // 2. render UI
+    renderPolaroids();
+    renderWishes();
+    renderCard();
 
-  history.replaceState(
-    null,
-    "",
-    `${CONFIG.sharePath}${clean}`
-  );
-}
+    // 3. unlock logic
+    if (sessionStorage.getItem("birthdaySite.unlocked")) {
+      document.body.classList.remove("locked");
+      $("siteShell")?.removeAttribute("aria-hidden");
+    }
 
-  // 4. unlock state
-  if (sessionStorage.getItem("birthdaySite.unlocked") === "true") {
-    document.body.classList.remove("locked");
-    $("siteShell").removeAttribute("aria-hidden");
-  } else {
-    $("gatePassword").focus();
+    // 4. URL clean
+    history.replaceState(
+      null,
+      "",
+      giftId
+        ? `${CONFIG.sharePath}/${giftId}`
+        : CONFIG.sharePath
+    );
+
+  } catch (err) {
+    console.error(err);
+    showError("Something went wrong loading the gift 💔");
+  } finally {
+    hideLoading();
   }
 })();
+
