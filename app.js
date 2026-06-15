@@ -99,18 +99,13 @@ async function loadFromSupabase(id) {
   sitePassword = data.password || defaultPassword;
 
   applyDetails({
-    functionrenderPolaroids() {
-  const memories = read(store.memories, []);
-  const wall = $("memoryWall");
-  if (!wall) return;
-
-  wall.innerHTML = "";
-
-  if (!memories.length) {
-    wall.innerHTML =
-      `<div class="empty-note">Add photos and they will pop out as polaroids.</div>`;
-    return;
-  }
+    friendName: data.friend_name,
+    creatorName: data.creator_name,
+    password: data.password,
+    passwordHint: data.password_hint,
+    introNote: data.intro_note,
+  });
+}
 
   memories.forEach((item, index) => {
     const figure = document.createElement("figure");
