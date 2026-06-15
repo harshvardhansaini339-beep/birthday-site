@@ -99,7 +99,7 @@ async function loadFromSupabase(id) {
   sitePassword = data.password || defaultPassword;
 
   applyDetails({
-    function.renderPolaroids() {
+    functionrenderPolaroids() {
   const memories = read(store.memories, []);
   const wall = $("memoryWall");
   if (!wall) return;
