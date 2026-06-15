@@ -46,6 +46,7 @@ const musicKey = "backgroundSong";
   }
 }
 
+
 function openMusicDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(musicDbName, 1);
