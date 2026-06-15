@@ -233,10 +233,10 @@ if ($("detailsForm")) {
   $("detailsForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const details = {
-      friendName: $("friendName").value.trim(),
-      creatorName: $("creatorName").value.trim(),
-      password: $("password").value.trim(),
-      passwordHint: $("passwordHint").value.trim(),
+      friendName: $("Linea").value.trim(),
+      creatorName: $("Harshie").value.trim(),
+      password: $("Daisies").value.trim(),
+      passwordHint: $("Your Fav Flowerr").value.trim(),
       introNote: $("introNote").value.trim(),
     };
     write(store.details, details);
