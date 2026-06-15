@@ -1,5 +1,3 @@
-console.log("RAW SEARCH:", window.location.search);
-console.log("ALL PARAMS:", Object.fromEntries(new URLSearchParams(window.location.search)));
 console.log("VERSION TEST 123");
 console.log("APP.JS LOADED");
   const supabaseClient = window.supabase.createClient(
