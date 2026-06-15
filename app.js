@@ -15,13 +15,19 @@ if (giftId) {
 
 console.log("Gift ID:", giftId);
 
-useShareUrl();
-console.log("VERSION TEST 123");
-console.log("APP.JS LOADED");
-  const supabaseClient = window.supabase.createClient(
-  "https://drjzqnhzhzsvfqebuayo.supabase.co",
-  "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
-);
+function useShareUrl() {
+  const isRootPage =
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html");
+
+  if (!isRootPage) return;
+
+  const url = new URL(window.location.href);
+
+  const newUrl = sharePath + (url.search || "");
+
+  history.replaceState(null, "", newUrl);
+}
   const store = {
   details: "birthdaySite.details",
   memories: "birthdaySite.memories",
