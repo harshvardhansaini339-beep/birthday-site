@@ -299,6 +299,9 @@ if ($("cardForm")) {
   });
 }
   (async () => {
+  console.log("FULL URL:", window.location.href);
+  console.log("SEARCH:", window.location.search);
+  console.log("PATH:", window.location.pathname);
   const giftId = new URLSearchParams(window.location.search).get("gift");
 
   console.log("Gift ID:", giftId);
