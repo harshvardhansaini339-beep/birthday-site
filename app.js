@@ -99,6 +99,58 @@ async function loadFromSupabase(id) {
   sitePassword = data.password || defaultPassword;
 
   applyDetails({
+    function renderPolaroids() {
+  const memories = read(store.memories, []);
+  const wall = $("memoryWall");
+  if (!wall) return;
+
+  wall.innerHTML = "";
+
+  if (!memories.length) {
+    wall.innerHTML =
+      `<div class="empty-note">Add photos and they will pop out as polaroids.</div>`;
+    return;
+  }
+
+  memories.forEach((item, index) => {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const caption = document.createElement("figcaption");
+
+    img.src = item.src;
+    caption.textContent = item.caption || "write a caption";
+
+    figure.style.transform = `rotate(${[-3, 2, -1, 3, -2][index % 5]}deg)`;
+
+    figure.appendChild(img);
+    figure.appendChild(caption);
+    wall.appendChild(figure);
+  });
+}
+
+function renderWishes() {
+  const wishes = read(store.wishes, []);
+  const list = $("wishList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  wishes.forEach((wish) => {
+    const item = document.createElement("article");
+    item.innerHTML = `<strong>${wish.name}</strong><p>${wish.text}</p>`;
+    list.appendChild(item);
+  });
+}
+
+function renderCard() {
+  const card = read(store.card, {});
+
+  if ($("cardTitle")) $("cardTitle").value = card.title || "";
+  if ($("cardText")) $("cardText").value = card.text || "";
+
+  if ($("previewTitle")) $("previewTitle").textContent = card.title || "";
+  if ($("previewText")) $("previewText").textContent = card.text || "";
+}
     friendName: data.friend_name,
     creatorName: data.creator_name,
     password: data.password,
