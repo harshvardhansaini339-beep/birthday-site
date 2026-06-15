@@ -121,7 +121,6 @@ async function loadFromSupabase(id) {
     figure.appendChild(caption);
     wall.appendChild(figure);
   });
-}
 
 function renderWishes() {
   const wishes = read(store.wishes, []);
