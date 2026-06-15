@@ -10,7 +10,7 @@ console.log("APP.JS LOADED");
   card: "birthdaySite.card",
 };
 
-const defaultPassword = "cake21";
+const defaultPassword = "Daisies";
 let sitePassword = defaultPassword;
 
 const $ = (id) => document.getElementById(id);
@@ -24,7 +24,7 @@ const read = (key, fallback) => {
 };
 
 const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-const defaultHint = "something soft and birthday-ish";
+const defaultHint = "Your Fav Flowerr";
 const sharePath = "/agifttomypreciousbestie";
 let backgroundAudio = null;
 const musicDbName = "birthdaySite.media";
@@ -130,16 +130,16 @@ function fileToDataUrl(file) {
 }
 
 function applyDetails(details) {
-  if (details.friendName) {
-    $("heroName").textContent = `Happy 21st Birthday, ${details.friendName}`;
+  if (details.Linea) {
+    $("heroName").textContent = `Happy 21st Birthday, ${details.Linea}`;
   }
 
   if (details.introNote && $("visitorIntroNote")) {
     $("visitorIntroNote").textContent = details.introNote;
   }
 
-  if ($("friendName")) $("friendName").value = details.friendName || "";
-  if ($("creatorName")) $("creatorName").value = details.creatorName || "";
+  if ($("Linea")) $("Linea").value = details.Linea || "";
+  if ($("Harshie")) $("Harsie").value = details.Harshie || "";
   if ($("password")) $("password").value = details.password || "";
   if ($("passwordHint")) $("passwordHint").value = details.passwordHint || "";
   if ($("introNote")) $("introNote").value = details.introNote || "";
