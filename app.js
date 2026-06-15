@@ -305,7 +305,7 @@ if ($("cardForm")) {
   console.log("PATH:", window.location.pathname);
   const giftId = new URLSearchParams(window.location.search).get("gift");
 
-  console.log("Gift ID:", giftId);
+  console.log("gift=73d3a41d-4b1b-4b5e-a8e6-fb4aa266444c:", giftId);
 
   if (!giftId) return;
 
