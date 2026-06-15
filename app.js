@@ -1,5 +1,4 @@
-const url = new URL(window.location.href);
-const giftId = url.searchParams.get("gift");
+const url = new URL(window.location.href).searchParams.get("gift");;
 
 console.log("Gift ID:", giftId);
 
