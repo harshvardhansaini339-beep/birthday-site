@@ -130,23 +130,45 @@ function fileToDataUrl(file) {
 }
 
 function applyDetails(details) {
-  if (details.Linea) {$("heroName").textContent = `Happy 21st Birthday, ${details.Linea}`; }
-
-  if (details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). && $("visitorIntroNote")) {
-    $("visitorIntroNote").textContent = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p).;
+  if (details.friendName) {
+    $("heroName").textContent = `Happy 21st Birthday, ${details.friendName}`;
   }
 
-  if ($("Linea")) $("Linea").value = details.Linea || "";
-  if ($("Harshie")) $("Harsie").value = details.Harshie || "";
-  if ($("password")) $("password").value = details.Daisies || "";
-  if ($("passwordHint")) $("passwordHint").value = details.Your Fav Flowerr || "";
-  if ($("introNote")) $("introNote").value = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). || "";
-  $("gateHint").textContent = `Hint: ${details.Your Fav Flowerr || defaultHint}.`;
-  $("previewSignature").textContent = details.Harshie
-    ? `with love, ${details.Harshie}`
-    : "with love, Harshie";
-}
+  if (details.introNote && $("visitorIntroNote")) {
+    $("visitorIntroNote").textContent = details.introNote;
+  }
 
+  if ($("Linea")) {
+    $("Linea").value = details.friendName || "";
+  }
+
+  if ($("Harshie")) {
+    $("Harshie").value = details.creatorName || "";
+  }
+
+  if ($("password")) {
+    $("password").value = details.password || "";
+  }
+
+  if ($("passwordHint")) {
+    $("passwordHint").value = details.passwordHint || "";
+  }
+
+  if ($("introNote")) {
+    $("introNote").value = details.introNote || "";
+  }
+
+  if ($("gateHint")) {
+    $("gateHint").textContent =
+      `Hint: ${details.passwordHint || defaultHint}`;
+  }
+
+  if ($("previewSignature")) {
+    $("previewSignature").textContent = details.creatorName
+      ? `with love, ${details.creatorName}`
+      : "with love";
+  }
+}
 function renderPolaroids() {
   const memories = read(store.memories, []);
   const wall = $("memoryWall");
@@ -231,12 +253,12 @@ if ($("detailsForm")) {
   $("detailsForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const details = {
-      friendName: $("Linea").value.trim(),
-      creatorName: $("Harshie").value.trim(),
-      password: $("Daisies").value.trim(),
-      passwordHint: $("Your Fav Flowerr").value.trim(),
-      introNote: $("introNote").value.trim(),
-    };
+  friendName: $("Linea").value.trim(),
+  creatorName: $("Harshie").value.trim(),
+  password: $("password").value.trim(),
+  passwordHint: $("passwordHint").value.trim(),
+  introNote: $("introNote").value.trim(),
+};
     write(store.details, details);
     applyDetails(details);
     $("heroMessage").textContent = details.introNote || $("heroMessage").textContent;
