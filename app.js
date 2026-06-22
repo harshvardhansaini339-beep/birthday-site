@@ -10,11 +10,6 @@ console.log("APP.JS LOADED");
   card: "birthdaySite.card",
 };
 
-friendName: "Linea"
-creatorName: "Harshie"
-password: "Daisies"
-passwordHint: "Your Fav Flowerr"
-introNote: "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
 const defaultPassword = "Daisies";
 sitePassword = "Daisies";
 
