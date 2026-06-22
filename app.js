@@ -1,9 +1,4 @@
-console.log("APP.JS LOADED");
-  const supabaseClient = window.supabase.createClient(
-  "https://drjzqnhzhzsvfqebuayo.supabase.co",
-  "sb_publishable_duTpTqIM51O6Vprzr531dA_njOUJj4b"
-);
-  const store = {
+const store = {
   details: "birthdaySite.details",
   memories: "birthdaySite.memories",
   wishes: "birthdaySite.wishes",
@@ -11,15 +6,7 @@ console.log("APP.JS LOADED");
 };
 
 const defaultPassword = "Daisies";
-sitePassword = "Daisies";
-
-applyDetails({
-  friendName: "Linea",
-  creatorName: "Harshie",
-  password: "Daisies",
-  passwordHint: "Your Fav Flower",
-  introNote: "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
-});
+let sitePassword = defaultPassword;
 
 const $ = (id) => document.getElementById(id);
 
@@ -138,13 +125,27 @@ function fileToDataUrl(file) {
 }
 
 function applyDetails(details) {
+  applyDetails({
+  friendName: "Linea",
+  creatorName: "Harshie",
+  password: "Daisies",
+  passwordHint: "Your Fav Flower",
+  introNote:
+    "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
+});
+
+sitePassword = "Daisies";
   if (details.friendName) {
     $("heroName").textContent = `Happy 21st Birthday, ${details.friendName}`;
   }
 
   if (details.introNote && $("visitorIntroNote")) {
-    $("visitorIntroNote").textContent = details.introNote;
-  }
+  $("visitorIntroNote").textContent = details.introNote;
+}
+
+if ($("heroMessage")) {
+  $("heroMessage").textContent = details.introNote;
+}
 
   if ($("Linea")) {
     $("Linea").value = details.friendName || "";
