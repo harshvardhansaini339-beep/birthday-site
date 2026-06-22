@@ -140,7 +140,7 @@ function applyDetails(details) {
 
   const ($("Linea")) $("Linea").value = details.Linea || "";
   const ($("Harshie")) $("Harsie").value = details.Harshie || "";
-  const ($("password")) $("password").value = details.Daisies || "";
+  if ($("password")) $("password").value = details.Daisies || "";
   const ($("passwordHint")) $("passwordHint").value = details.Your Fav Flowerr || "";
   const ($("introNote")) $("introNote").value = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). || "";
   $("gateHint").textContent = `Hint: ${details.Your Fav Flowerr || defaultHint}.`;
