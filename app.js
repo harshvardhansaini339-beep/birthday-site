@@ -134,19 +134,19 @@ function applyDetails(details) {
     $("heroName").textContent = `Happy 21st Birthday, ${details.Linea}`;
   }
 
-  if (details.introNote && $("visitorIntroNote")) {
-    $("visitorIntroNote").textContent = details.introNote;
+  if (details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). && $("visitorIntroNote")) {
+    $("visitorIntroNote").textContent = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p).;
   }
 
   if ($("Linea")) $("Linea").value = details.Linea || "";
   if ($("Harshie")) $("Harsie").value = details.Harshie || "";
-  if ($("password")) $("password").value = details.password || "";
-  if ($("passwordHint")) $("passwordHint").value = details.passwordHint || "";
-  if ($("introNote")) $("introNote").value = details.introNote || "";
-  $("gateHint").textContent = `Hint: ${details.passwordHint || defaultHint}.`;
-  $("previewSignature").textContent = details.creatorName
-    ? `with love, ${details.creatorName}`
-    : "with love, your creator";
+  if ($("password")) $("password").value = details.Daisies || "";
+  if ($("passwordHint")) $("passwordHint").value = details.Your Fav Flowerr || "";
+  if ($("introNote")) $("introNote").value = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). || "";
+  $("gateHint").textContent = `Hint: ${details.Your Fav Flowerr || defaultHint}.`;
+  $("previewSignature").textContent = details.Harshie
+    ? `with love, ${details.Harshie}`
+    : "with love, Harshie";
 }
 
 function renderPolaroids() {
