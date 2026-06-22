@@ -130,19 +130,19 @@ function fileToDataUrl(file) {
 }
 
 function applyDetails(details) {
-  const (details.Linea) {
+  if (details.Linea) {
     $("heroName").textContent = `Happy 21st Birthday, ${details.Linea}`;
   }
 
-  const (details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). && $("visitorIntroNote")) {
+  if (details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). && $("visitorIntroNote")) {
     $("visitorIntroNote").textContent = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p).;
   }
 
-  const ($("Linea")) $("Linea").value = details.Linea || "";
-  const ($("Harshie")) $("Harsie").value = details.Harshie || "";
+  if ($("Linea")) $("Linea").value = details.Linea || "";
+  if ($("Harshie")) $("Harsie").value = details.Harshie || "";
   if ($("password")) $("password").value = details.Daisies || "";
-  const ($("passwordHint")) $("passwordHint").value = details.Your Fav Flowerr || "";
-  const ($("introNote")) $("introNote").value = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). || "";
+  if ($("passwordHint")) $("passwordHint").value = details.Your Fav Flowerr || "";
+  if ($("introNote")) $("introNote").value = details.Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p). || "";
   $("gateHint").textContent = `Hint: ${details.Your Fav Flowerr || defaultHint}.`;
   $("previewSignature").textContent = details.Harshie
     ? `with love, ${details.Harshie}`
