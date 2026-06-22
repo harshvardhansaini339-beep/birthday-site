@@ -25,7 +25,6 @@ const read = (key, fallback) => {
 
 const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 const defaultHint = "Your Fav Flowerr";
-let sitePassword = defaultPassword;
 const sharePath = "/agifttomypreciousbestie";
 let backgroundAudio = null;
 const musicDbName = "birthdaySite.media";
