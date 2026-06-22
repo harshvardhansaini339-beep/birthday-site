@@ -125,16 +125,6 @@ function fileToDataUrl(file) {
 }
 
 function applyDetails(details) {
-  applyDetails({
-  friendName: "Linea",
-  creatorName: "Harshie",
-  password: "Daisies",
-  passwordHint: "Your Fav Flower",
-  introNote:
-    "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
-});
-
-sitePassword = "Daisies";
   if (details.friendName) {
     $("heroName").textContent = `Happy 21st Birthday, ${details.friendName}`;
   }
@@ -178,6 +168,17 @@ if ($("heroMessage")) {
       : "with love";
   }
 }
+applyDetails({
+  friendName: "Linea",
+  creatorName: "Harshie",
+  password: "Daisies",
+  passwordHint: "Your Fav Flower",
+  introNote:
+    "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
+});
+
+sitePassword = "Daisies";
+
 function renderPolaroids() {
   const memories = read(store.memories, []);
   const wall = $("memoryWall");
