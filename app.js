@@ -11,7 +11,15 @@ console.log("APP.JS LOADED");
 };
 
 const defaultPassword = "Daisies";
-let sitePassword = defaultPassword;
+sitePassword = "Daisies";
+
+applyDetails({
+  friendName: "Linea",
+  creatorName: "Harshie",
+  password: "Daisies",
+  passwordHint: "Your Fav Flower",
+  introNote: "Happy birthday, Linea! 💝🥳🎉🍾(￣y▽,￣)╭ May this year be filled with lots and lots of fun and adventures (with me too obv :p)."
+});
 
 const $ = (id) => document.getElementById(id);
 
